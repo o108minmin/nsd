@@ -11,27 +11,27 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     title = "nsd ver0.0.1"
-    message = "予言したい文字列を入力してください"
+    message = '予言したい文字列を入力してください'
     # index.html をレンダリングする
     return render_template('index.html', message=message, title=title)
 
 # /post にアクセスしたときの処理
 @app.route('/post', methods=['GET', 'POST'])
 def post():
-    title = "実行結果"
+    title = '実行結果'
     if request.method == 'POST':
         # リクエストフォームから「ハッシュ化したい文字列」を取得して
         name = request.form['name']
         if name == "":
             # 空っぽだった時用
-            return render_template('index.html', name="error: 空白です", title=title)
+            return render_template('index.html', name='error: 空白です', title=title)
         # 日付取得
         now = datetime.datetime.now().isoformat()
         # ハッシュ化
         m = hashlib.sha256()
         m.update(name.encode("utf-8"))
         # index.html をレンダリングする
-        return render_template('index.html', name=m.hexdigest() + "\n timefrom:" +now, title=title)
+        return render_template('index.html', name=m.hexdigest() + '\n timefrom:' +now, title=title)
     else:
         # エラーなどでリダイレクトしたい場合はこんな感じで
         return redirect(url_for('index'))
