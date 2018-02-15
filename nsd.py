@@ -24,9 +24,10 @@ def post():
         name = request.form['name']
         if name == "":
             # 空っぽだった時用
-            return render_template('index.html', name="文字列を入力し直してください", title=title)
-        
+            return render_template('index.html', name="error: 空白です", title=title)
+        # 日付取得
         now = datetime.datetime.now().isoformat()
+        # ハッシュ化
         m = hashlib.sha256()
         m.update(name.encode("utf-8"))
         # index.html をレンダリングする
